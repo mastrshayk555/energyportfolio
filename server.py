@@ -15,11 +15,6 @@ def my_home():
 def html_page(page_name):
     return render_template(page_name)
 
-@app.route('/route_name')
-def script_output():
-    output = execute('./script')
-    return render_template('template_name.html',output=output)
-
 
 @app.route('/check_password', methods=['POST', 'GET'])
 def check_password():
@@ -30,7 +25,8 @@ def check_password():
         except:
             return 'something failed'
         if count:
-            return render_template('passresult.html', output=f'{password} was found {count} times... You should probably change your password.')
+            return render_template('passresult.html', output=f'{password} was found {count} times... You should '
+                                                             f'probably change your password.')
         else:
             return render_template('passresult.html', output=f"{password} was NOT found. OK to proceed.")
     else:
@@ -58,9 +54,3 @@ def write_to_csv(data):
         message = data['message']
         csv_writer = csv.writer(database, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         csv_writer.writerow([email, subject, message])
-
-
-# @app.route('/favicon.ico')
-# def favicon():
-#     return send_from_directory(os.path.join(app.root_path, 'static'),
-#                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
