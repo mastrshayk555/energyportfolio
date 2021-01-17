@@ -15,6 +15,11 @@ def my_home():
 def html_page(page_name):
     return render_template(page_name)
 
+@app.route('/route_name')
+def script_output():
+    output = execute('./script')
+    return render_template('template_name.html',output=output)
+
 
 @app.route('/check_password', methods=['POST', 'GET'])
 def check_password():
@@ -25,11 +30,12 @@ def check_password():
         except:
             return 'something failed'
         if count:
-            return f'{password} was found {count} times... You should probably change your password.'
+            return render_template('passresult.html', output=f'{password} was found {count} times... You should probably change your password.')
         else:
-            return f"{password} was NOT found. OK to proceed."
+            return render_template('passresult.html', output=f"{password} was NOT found. OK to proceed.")
     else:
         return 'Something did not work'
+    # TODO: Get the password check info to report on the passresult.html
 
 
 @app.route('/submit_form', methods=['POST', 'GET'])
