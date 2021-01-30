@@ -3,7 +3,7 @@ from flask import Flask, render_template, send_from_directory, url_for, request,
 import passcheck
 import csv
 
-app = Flask(__name__)
+application = app = Flask(__name__)
 
 
 @app.route('/')
@@ -54,3 +54,7 @@ def write_to_csv(data):
         message = data['message']
         csv_writer = csv.writer(database, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         csv_writer.writerow([email, subject, message])
+
+
+if __name__ == "__main__":
+    app.run()
